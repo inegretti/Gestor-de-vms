@@ -23,7 +23,7 @@ def listar_vms():
     funcion=apiCloud()
     funcion.USERNAME=caja2.get()
     funcion.PASSWORD=caja3.get()
-    lista= apiCloud().list_vms(funcion.get_token())
+    lista= funcion.list_vms(funcion.get_token())
     ventana2=tk.Toplevel(ventana)
     ventana2.geometry("2000x800")
     ventana2.title("Lista de VMs")
