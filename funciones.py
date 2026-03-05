@@ -6,8 +6,8 @@ class apiCloud:
     
     VCD_URL = "https://vcd.clarocloud.com"
     API_VERSION = "36.3"
-    USERNAME =  " " # "usuariolocaldecloud@nro de cuenta"
-    PASSWORD =  " "#"contraseña del usuario"
+    USERNAME =   # usuariolocaldecloud@nro de cuenta
+    PASSWORD =  #contraseña del usuario
     VM_ID = "urn:vcloud:vm:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx"
     
     def __init__(self):
@@ -67,7 +67,7 @@ class apiCloud:
             #crear el listado
             listado.append({"Nombre": name,  "ID": vm_id,  "Href": href,  "Status": status})
         return listado
-    """
+   
     
     def configGeneral(self,token):
         headers = {
@@ -83,7 +83,7 @@ class apiCloud:
         data = response.json()
         
         return data
-    
+    """ 
     def list_vms(self, token):
         headers = {
             "Accept": f"application/*+json;version={self.API_VERSION}",
@@ -130,21 +130,26 @@ class apiCloud:
             "Authorization": f"Bearer {token}"
         }
         
-        response = requests.get(href, headers=headers)
-        response.raise_for_status()
-
-        data = response.json()
-        status = data.get("status")
+        try:
         
-        if(status == 4):
-            print("La VM ya está encendida.")
-            
-            
-        else:
-            url = f"{href}/power/action/powerOn"
-            response = requests.post(url, headers=headers)
+            response = requests.get(href, headers=headers)
             response.raise_for_status()
-            print("VM encendiéndose (powerOn)")
+
+            data = response.json()
+            status = data.get("status")
+            
+            if(status == 4):
+                print("La VM ya está encendida.")
+                
+                
+            else:
+                url = f"{href}/power/action/powerOn"
+                response = requests.post(url, headers=headers)
+                response.raise_for_status()
+                print("VM encendiéndose (powerOn)")
+                
+        except requests.exceptions.HTTPError as err:
+            raise
             
 
         
@@ -155,20 +160,21 @@ class apiCloud:
             "Accept": f"application/*+json;version={self.API_VERSION}",
             "Authorization": f"Bearer {token}"
         }
-        
-        response = requests.get(href, headers=headers)
-        response.raise_for_status()
-
-        data = response.json()
-        status = data.get("status")
-        
-        if(status == 8):
-            print("La VM ya está apagada.")
-        else:
-            url = f"{href}/power/action/shutdown"
-
-            response = requests.post(url, headers=headers)
+        try:
+            response = requests.get(href, headers=headers)
             response.raise_for_status()
 
-            print("VM apagándose (shutdown)") 
+            data = response.json()
+            status = data.get("status")
+            
+            if(status == 8):
+                print("La VM ya está apagada.")
+            else:
+                url = f"{href}/power/action/shutdown"
 
+                response = requests.post(url, headers=headers)
+                response.raise_for_status()
+
+                print("VM apagándose (shutdown)") 
+        except requests.exceptions.HTTPError as err:
+            raise

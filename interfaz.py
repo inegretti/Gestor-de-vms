@@ -33,35 +33,43 @@ etiqueta.place(x=20,y=90)
 def prender():
    ventana2=tk.Tk() 
    ventana2.config(width=400, height=300)
-   if(caja.get() != ""):
-    if(funcion.verEstado(caja.get(),funcion.get_token())!=4):
-      funcion.power_on_vm(funcion.get_token(), caja.get())
-      ventana2.title("Ok")
-      tk.Label(ventana2, text="la vm encendiendose").place(x=100,y=100) 
-    else:
+   try:
+      if(caja.get() != ""):
+         if(funcion.verEstado(caja.get(),funcion.get_token())!=4):
+            funcion.power_on_vm(funcion.get_token(), caja.get())
+            ventana2.title("Ok")
+            tk.Label(ventana2, text="la vm encendiendose").place(x=100,y=100) 
+         else:
+            ventana2.title("error")
+            tk.Label(ventana2, text="la vm ya esta encendida").place(x=100,y=100)   
+      else:
+         ventana2.title("error")
+         tk.Label(ventana2, text="la caja no puede estar vacia").place(x=100,y=100)
+   except requests.exceptions.HTTPError as err:
        ventana2.title("error")
-       tk.Label(ventana2, text="la vm ya esta encendida").place(x=100,y=100)   
-   else:
-       ventana2.title("error")
-       tk.Label(ventana2, text="la caja no puede estar vacia").place(x=100,y=100)
+       tk.Label(ventana2, text=err).place(x=100,y=100)
    ventana2.mainloop()
-boton3 = tk.Button(text="Encender", command=lambda: prender())
+boton3 = tk.Button(text="Encender o apagar VM", command=lambda: prender())
 boton3.place(x=20,y=150,width=150,height=30)
 
 def apagar():
    ventana2=tk.Tk() 
    ventana2.config(width=400, height=300)
-   if(caja.get() != ""):
-    if((funcion.verEstado(caja.get(),funcion.get_token()))!=8):
-      funcion.shutdown_vm(funcion.get_token(), caja.get())
-      ventana2.title("Ok")
-      tk.Label(ventana2, text="vm apagandose").place(x=100,y=100)
-    else:
-      ventana2.title("error")
-      tk.Label(ventana2, text="la vm ya esta apagada").place(x=100,y=100) 
-   else:
-      ventana2.title("error")
-      tk.Label(ventana2, text="la caja no puede estar vacia").place(x=100,y=100)
+   try:
+      if(caja.get() != ""):
+         if((funcion.verEstado(caja.get(),funcion.get_token()))!=8):
+            funcion.shutdown_vm(funcion.get_token(), caja.get())
+            ventana2.title("Ok")
+            tk.Label(ventana2, text="vm apagandose").place(x=100,y=100)
+         else:
+            ventana2.title("error")
+            tk.Label(ventana2, text="la vm ya esta apagada").place(x=100,y=100) 
+      else:
+         ventana2.title("error")
+         tk.Label(ventana2, text="la caja no puede estar vacia").place(x=100,y=100)
+   except requests.exceptions.HTTPError as err:
+       ventana2.title("error")
+       tk.Label(ventana2, text=err).place(x=100,y=100)
    ventana2.mainloop()
 boton4 = tk.Button(text="Apagar VM", command=lambda: apagar())
 boton4.place(x=180,y=150,width=150,height=30)
