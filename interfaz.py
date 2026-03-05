@@ -49,7 +49,7 @@ def prender():
        ventana2.title("error")
        tk.Label(ventana2, text=err).place(x=100,y=100)
    ventana2.mainloop()
-boton3 = tk.Button(text="Encender o apagar VM", command=lambda: prender())
+boton3 = tk.Button(text="Encender VM", command=lambda: prender())
 boton3.place(x=20,y=150,width=150,height=30)
 
 def apagar():
