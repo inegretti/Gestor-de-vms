@@ -115,19 +115,6 @@ Estos parámetros se encuentran en la clase `apiCloud`.
 
 ---
 
-# Posibles mejoras
-
-Algunas mejoras futuras para el proyecto:
-
-- manejo de variables de entorno para credenciales
-- sistema de logging
-- caché de token
-- empaquetado como ejecutable
-- CLI además de interfaz gráfica
-- monitoreo automático del estado de VMs
-
----
-
 # Autor
 
 Ignacio Negretti Dietrich
