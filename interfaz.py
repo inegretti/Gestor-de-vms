@@ -71,12 +71,14 @@ def prender():
       else:
          ventana2.title("error")
          tk.Label(ventana2, text="complete todos los campos").place(x=100,y=100)
-   except requests.exceptions.HTTPError as err:
+   except (requests.exceptions.HTTPError, requests.exceptions.InvalidSchema) as err:
        ventana2.title("error")
        if(str(err).__contains__("shutdown")):
         tk.Label(ventana2, text="La vm se esta apagando").place(x=100,y=100)
        elif(str(err).__contains__("powerOn")):
         tk.Label(ventana2, text="la esta encendiendose").place(x=100,y=100)
+       elif(str(err).__contains__("No connection adapters were found")):
+        tk.Label(ventana2, text="href incompleto o formato equivocado").place(x=100,y=100)
        else:
         tk.Label(ventana2, text=err).place(x=100,y=100)
    ventana2.mainloop()
@@ -100,12 +102,14 @@ def apagar():
       else:
          ventana2.title("error")
          tk.Label(ventana2, text="la caja no puede estar vacia").place(x=100,y=100)
-   except requests.exceptions.HTTPError as err:
+   except (requests.exceptions.HTTPError, requests.exceptions.InvalidSchema) as err:
        ventana2.title("error")
        if(str(err).__contains__("shutdown")):
         tk.Label(ventana2, text="La vm se esta apagando").place(x=100,y=100)
        elif(str(err).__contains__("powerOn")):
         tk.Label(ventana2, text="la esta encendiendose").place(x=100,y=100)
+       elif(str(err).__contains__("No connection adapters were found")):
+        tk.Label(ventana2, text="href incompleto o formato equivocado").place(x=100,y=100)
        else:
         tk.Label(ventana2, text=err).place(x=100,y=100)
    ventana2.mainloop()
