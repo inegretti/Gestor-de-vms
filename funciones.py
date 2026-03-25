@@ -102,10 +102,11 @@ class apiCloud:
             name = vm.get("name")
             href = vm.get("href")
             status = vm.get("status")
+            ip = vm.get("ipAddress")  # Obtener la dirección IP
 
             vm_id = href.split("/")[-1] if href else None
 
-            listado.append({"Nombre": name,  "ID": vm_id,  "Href": href,  "Status": status})
+            listado.append({"Nombre": name,  "ID": vm_id,  "Href": href,  "Status": status, "IP": ip})
 
         return listado
     
