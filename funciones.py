@@ -5,7 +5,7 @@ import base64
 class apiCloud:
     
     VCD_URL = "https://vcd.clarocloud.com"
-    API_VERSION = "36.3"
+    API_VERSION = "37.3"
     USERNAME =  ".." # usuariolocaldecloud@nro de cuenta
     PASSWORD = ".." #contraseña del usuario
     VM_ID = "urn:vcloud:vm:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx"
